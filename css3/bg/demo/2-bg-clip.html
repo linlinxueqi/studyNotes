@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-clip</title>
+    <style>
+        div{
+            width: 200px;
+            height: 100px;
+            /* 边框透明紫色 */
+            border: 30px dashed rgba(25,25,125,0.5);
+            background: orange url("../img/border.jpg") no-repeat;
+            padding: 20px;
+            margin: 30px;
+        }
+        .border-box{
+            background-clip: border-box;
+        }
+        .padding-box{
+            background-clip: padding-box;
+        }
+        .content-box{
+            background-clip: content-box;
+        }
+        /* text属性，只在-webkit-内核上有，并且配合该内核下的text-fill-color:transparent使用 */
+        .text{
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="border-box"></div>
+    <div class="padding-box"></div>
+    <div class="content-box"></div>
+    <div class="text">背景图片填充文字效果</div>
+</body>
+</html>

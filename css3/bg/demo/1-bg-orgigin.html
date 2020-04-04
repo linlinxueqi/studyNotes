@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-origin背景起始位置的设置</title>
+    <style>
+        div{
+            width: 300px;
+            height: 200px;
+            border: 20px dashed rgba(0,0,0,0.3);
+            background: orange url("../img/bg.png") no-repeat left top;
+            margin: 30px;
+            padding: 20px;
+        }
+        /* border-box加上各个浏览器的前缀 */
+        .border-box{
+            -webkit-background-origin: border-box;
+            -moz-background-origin: border-box;
+            -o-background-origin: border-box;
+            -ms-background-origin:border-box;
+            background-origin: border-box;
+        }
+        /* padding-box为background-origin的默认值 */
+        .padding-box{
+            background-origin: padding-box;
+        }
+
+        .content-box{
+            background-origin: content-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="border-box"></div>
+    <div class="padding-box"></div>
+    <div class="content-box"></div>
+</body>
+</html>

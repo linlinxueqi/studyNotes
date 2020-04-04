@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css2和css3背景显示范围的问题</title>
+    <!-- 
+        css2:背景的显示范围是内部补白（padding）之内的范围
+        css3: 布满整个盒子区域，只是边框遮住了背景
+
+        css3背景的注意点 ===============
+            background-repeat:no-repeat时，background-image时从padding开始的
+     -->
+
+     <style>
+        div{
+            width: 300px;
+            height: 100px;
+            border: 50px dashed rgba(0,0,0,0.8);
+            background: rgba(0,25,25,.8) url("../img/border.jpg") no-repeat;
+            padding: 30px;
+            margin: 20px;
+        }
+        .no-repeat{
+            background-repeat: no-repeat;
+            /* color在image之下 */
+
+        }
+        .repeat{
+            background-repeat: repeat;
+        }
+     </style>
+</head>
+<body>
+    <div class="no-repeat"></div>
+
+    <div class="repeat"></div>
+</body>
+</html>

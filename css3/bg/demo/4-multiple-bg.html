@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多背景的相关应用</title>
+    <style>
+        .demo{
+            width: 240px;
+            border: 20px solid rgba(104, 104, 142, 0.5);
+            border-radius: 10px;
+            padding: 80px 60px;
+            color: #f36;
+            font-size: 25px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .multipleBg{
+            background: url("../img/bg-tl.png") no-repeat left top,
+                        url("../img/bg-tr.png") no-repeat right top,
+                        url("../img/bg-bl.png") no-repeat left bottom,
+                        url("../img/bg-br.png") no-repeat right bottom,
+                        url("../img/bg-repeat.png") repeat left top;
+                        /* 背景在border上面显示 */
+            background-origin: border-box,border-box,border-box,border-box,padding-box;
+            background-clip:  border-box,border-box,border-box,border-box,padding-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo multipleBg">
+
+    </div>
+</body>
+</html>

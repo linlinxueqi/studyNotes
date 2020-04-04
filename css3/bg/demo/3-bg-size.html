@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-size示例</title>
+    <style>
+        div {
+			width: 300px;
+			height: 300px;
+			border: 1px solid red;
+			background: url(../img/bg.jpg) no-repeat;
+		}
+        .auto{
+			background-size: auto;
+        }
+        .cover{
+            /* 常用来制作满屏背景，但是需要一张足够大的背景图片，不然在较大分辨率的浏览器下图片会失真 */
+			background-size: cover;
+            background-position: center;
+        }
+        .contain{
+			background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="auto"></div>
+    <div class="cover"></div>
+    <div class="contain"></div>
+</body>
+</html>
