@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>draw multiple points</title>
+</head>
+<body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+        Please use the browser supporting "canvas"
+    </canvas>
+
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script>
+        var VSHADER_SOURCE = 
+            'attribute vec4 a_Position; \n' + 
+            'void main(){ \n' + 
+            ' gl_Position = a_Positon; \n' + 
+            ' gl_PointSize = 10.0; \n' + 
+            '} \n';
+
+        var FSHADER_SOURCE = 
+            'void main(){ \n' +
+            ' gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); \n' +
+            '} \n';
+        
+        function main(){
+            var canvas = document.getElementById('webgl');
+            var gl = getWebGLContext(canvas);
+
+            if(!gl){
+                console.log('Failed to get the rendering context for WebGL');
+                return;
+            }
+
+            if(!initShaders(gl, VSHADER_SOURCE,FSHADER_SOURCE)){
+                console.log('Failed to initialize shaders.');
+                return;
+            }
+        }
+    </script>
+</body>
+</html>
