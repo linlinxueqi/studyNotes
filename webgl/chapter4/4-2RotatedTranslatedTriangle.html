@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rotated triangles by cuon-matrix.js</title>
+</head>
+<body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+        please use a browser that supports 'canvas'
+    </canvas>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script>
+        var VSHADER_SOURCE =   
+            'attribute vec4 a_Position; \n' +
+            'uniform mat4 u_ModelMatrix; \n' + 
+            // 'uniform mat4 u_xformMatrix; \n' + 
+            'void main(){ \n' + 
+            ' gl_Position = u_ModelMatrix * a_Position; \n' + 
+            '} \n';
+        
+        var FSHADER_SOURCE = 
+            'void main(){ \n' +
+            ' gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); \n' + //设置颜色
+            '} \n';
+
+        
+        function main(){
+            var canvas = document.getElementById('webgl');
+            var gl = getWebGLContext(canvas);
+
+            if(!gl){
+                console.log('Failed to get the rendering context for WebGL');
+                return;
+            }
+
+            if(!initShaders(gl, VSHADER_SOURCE,FSHADER_SOURCE)){
+                console.log('Failed to initialize shaders.');
+                return;
+            }
+
+            var n = initVertexBuffers(gl);
+            if(n < 0){
+                console.log('Failed to set the positions of the verices');
+                return;
+            }
+
+            //创建Matrix4对象以进行模型变换
+            var modelMatrix = new Matrix4();
+
+            var ANGLE = 60.0; //旋转角
+            var Tx = 0.5; //平移距离
+
+            modelMatrix.setRotate(ANGLE, 0, 0, 1); //设置模型矩阵为旋转矩阵
+            modelMatrix.translate(Tx, 0, 0); //将模型矩阵乘以平移矩阵
+
+            var u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
+
+            gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
+
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.drawArrays(gl.TRIANGLES, 0, n);
+        }
+
+        function initVertexBuffers(gl){
+            //vertice => 顶点
+            var vertices = new Float32Array([
+                0.0, 0.3, -0.3, -0.3, 0.3, -0.3
+            ]);
+
+            var n= 3;
+
+            // 创建缓冲区
+            var vertexBuffer = gl.createBuffer();
+            if(!vertexBuffer){
+                console.log('Failed to create the buffer object ');
+                return -1;
+            }
+
+            // 将缓冲区对象绑定到目标
+            gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+            gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+            var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+
+            if(a_Position < 0){
+                console.log('Failed to get the storage location of a_Position');
+                return -1;
+            }
+
+            gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+
+            gl.enableVertexAttribArray(a_Position);
+            
+            return n;
+        }
+
+
+    </script>
+</body>
+</html>
