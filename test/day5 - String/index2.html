@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function transfer(data){
+            var stack = [];
+            var temp = "";
+            var strs = Array.from(data);
+            for(let i = 0; i < strs.length; i++){
+                if(strs[i] == ')'){
+                    let s = stack.pop();
+                    while(s != '('){
+                        temp = s + temp;
+                        s = stack.pop();
+                    }
+                    continue;
+                }
+
+                if(strs[i] == '<'){
+                    let count = data.substring(i + 1, data.indexOf('>', i));
+                    stack.push(temp.repeat(count));
+
+                    i += count.length + 1;
+                    temp = "";
+                }else{
+                    stack.push(strs[i])
+                }
+            }
+            return stack.toString().replace(/,/g, "");
+        }
+
+        var testData1 = "a(b(c)<3>de)<2>f";
+        console.log(transfer(testData1));
+    </script>
+</body>
+</html>
