@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>树结构获取路径</title>
+</head>
+<body>
+    <script>
+        function printPath(root, target){
+            const path = [];
+            const dfs = (node, target) => {
+                if(!node) return false;
+                path.push(node.val);
+                if(node === target) return path;
+                if(node.children && node.children.length){
+                    let i = -1;
+                    while(i++ < node.children.length){
+                        const result = dfs(node.children[i], target);
+                        if(result) return result;
+                    }
+                }
+                path.pop();
+                return false;
+
+            }
+            dfs(root, target);
+            return path;
+        }
+
+        const tree = {
+            val: 1,
+            children:[{
+                val:2, 
+                children:[]
+            },{
+                val: 3,
+                children:[{
+                    val:4
+                },{
+                    val: 18,
+                    children:[]
+                },{
+                    val: 11,
+                    children:[{
+                        val: 12
+                    }]
+                }]
+            }]
+        }
+
+        console.log(printPath(tree, tree.children[1].children[2].children[0]));
+    </script>
+
+</body>
+</html>

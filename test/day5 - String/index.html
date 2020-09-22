@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串匹配规则</title>
+</head>
+<body>
+    <script>
+        function parseStr(str){
+            var result = '';
+            var stack = [];
+            var tempStr = '';
+            var point, repeatStr, right, l = true;
+            for(var i = 0, len = str.length; i < len; i++){
+                if(str[i] == '('){
+                    if(right === 0) right++;
+                    if(l){
+                        l = false;
+                        if(stack.length > 0){
+                            stack[stack.length - 1] += tempStr;
+                        }else{
+                            result += tempStr;
+                        }
+                        tempStr = '';
+                        continue;
+                    }
+                    if(right === l){
+                        stack.push(tempStr);
+                        tempStr = '';
+                        continue;
+                    }
+                }else if(str[i] == ')'){
+                    var num = '';
+                    for(var s = i + 2; s < len; s++){
+                        if(str[s] === '>'){
+                            i = s;
+                            break;
+                        }
+                        num += str[s];
+                    }
+                    l = true;
+                    if(tempStr){
+                        stack.push(tempStr);
+                        tempStr = '';
+                    }
+                    point = stack.pop();
+                    if(point){
+                        repeatStr = point.repeat(+num);
+                        if(stack.length > 0){
+                            stack[stack.length - 1] += repeatStr;
+                        }else{
+                            result += repeatStr;
+                            right--;
+                        }
+                    }
+                }else{
+                    tempStr += str[i];
+                }
+            }
+            return result + tempStr;
+        }
+        console.log(parseStr('ab(de(f)<3>)<2>fg'))
+    </script>
+</body>
+</html>
