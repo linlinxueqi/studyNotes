@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给定一个整数数组nums,找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</title>
+</head>
+<body>
+    <script>
+        function maxSum(arr){
+            var len = arr.length;
+            var sumsArr = [];
+            var count = 0;
+            var sum = 0;
+            for(let i = 0; i < len; i++){
+                sum = arr[i];
+                sumsArr.push(arr[i]);
+                for(let j = i + 1; j < len; j++){
+                    sum = arr[i];
+                    count = j - i;
+                    while(count > 0){
+                        sum += arr[i + count];
+                        count--;
+                    }
+                    // console.log(sum);
+                    sumsArr.push(sum)
+                }
+            }
+            sumsArr.sort((a, b) => a-b);
+            return sumsArr[sumsArr.length - 1];
+        }
+        console.log(maxSum([1,2,3,4,5,6]));
+        console.log(maxSum([1,2,3,-7,5,6]));
+        console.log(maxSum([1,2,3,-7,5,1]));
+    </script>
+</body>
+</html>
