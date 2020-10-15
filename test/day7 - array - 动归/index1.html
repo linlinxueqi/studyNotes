@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态规划求最优解</title>
+</head>
+<body>
+    <script>
+        function MaxSum(arr){
+            var dp = arr[0]; //局部最优
+            var max = arr[0]; //全局最优
+            for(let i = 1; i < arr.length; i++){
+                dp = Math.max(dp + arr[i], arr[i]);
+                max = Math.max(max, dp);
+            }
+            return max;
+        }
+
+        console.log(MaxSum([1,2,-3,3,6]));
+    </script>
+</body>
+</html>
