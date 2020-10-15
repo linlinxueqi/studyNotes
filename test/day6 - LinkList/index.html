@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>生成一个链表，保存100个随机生成的整数，整数不分正负</title>
 </head>
 <body>
-    
+    <script>
+        function linkList(val){
+            this.value = val;
+            this.next = null
+        }
+
+        function generatorLink(){
+            let n = 0;
+            let head = node = new linkList();
+            while(n < 100){
+                node.value = Math.ceil((100 - Math.random() * 200));
+                node.next = new linkList();
+                node = node.next;
+                n++;
+            }
+            return head;
+        }
+
+        console.log(generatorLink());
+    </script>
 </body>
 </html>
